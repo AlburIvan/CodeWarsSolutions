@@ -40,12 +40,12 @@ public class BraceCheckerTests {
 
     @Test
     public void test_valid_complex_brackets() {
-        assertEquals(true, checker.isValid("[({})]"));
+        assertEquals(true, checker.isValid("(({{[[]]}}))"));
     }
 
     @Test
     public void test_invalid_complex_brackets() {
-        assertEquals(false, checker.isValid("([())]"));
+        assertEquals(false, checker.isValid("(({{[[]]}})"));
     }
 
 
