@@ -15,8 +15,22 @@ public class MusicDecoderTests {
 
 
     @Test
+    public void test_negative_identical_numbers() {
+        test("2 identical numbers",new int[] {-2,-2},"-2*2");
+    }
+
+
+    @Test
+    public void test_complex_numbers() {
+        test("2 identical numbers",
+                new int[] { 102,102,102,102,102,171,170,188,142,68,100,101,102,103,104,158,161,164,167,37,57,57,57,103,168,26},
+                "102*5,171,170,188,142,68,100-104,158-167/3,37,57*3,103,168,26");
+    }
+
+
+    @Test
     public void test_2_identical_numbers() {
-        test("2 identical numbers",new int[] {1,2,2,3},"1,2*2,3");
+        test("2 identical numbers",new int[] {1,2,2,2,3},"1,2*3,3");
     }
 
     @Test
@@ -41,8 +55,10 @@ public class MusicDecoderTests {
         System.out.println(encoded);
 
         for (int i : decoder.uncompress(encoded)) {
-            System.out.println(i);
+            System.out.print(i + ",");
         }
+
+//        System.out.println(decoder.uncompress(encoded).length);
 
         assertArrayEquals(description, raw, decoder.uncompress(encoded));
     }
