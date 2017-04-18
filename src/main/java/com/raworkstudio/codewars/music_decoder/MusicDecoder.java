@@ -2,6 +2,7 @@ package com.raworkstudio.codewars.music_decoder;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -13,13 +14,8 @@ import java.util.stream.Stream;
  */
 public class MusicDecoder {
 
-    Pattern pattern = Pattern.compile("(\\d+)([$-/:-?{-~!\"^_`\\[\\]])(\\d+)");
+    private Pattern pattern = Pattern.compile("(\\d+)([$-/:-?{-~!\"^_`\\[\\]])(.*)");
 
-    /*
-    number*count is expanded as number repeated count times
-first-last is expanded as a sequence of consecutive numbers starting with first and ending with last. This is true for both ascending and descending order
-first-last/interval is similarly expandad, as sequence starting with first, ending with last, where the numbers are separated by interval. Note that interval does NOT have a sign
-     */
     public int[] uncompress(String encoded) {
 
         String decoded = Stream.of(encoded.split(","))
@@ -35,31 +31,16 @@ first-last/interval is similarly expandad, as sequence starting with first, endi
                         String decodeSymbol = matcher.group(2);
 
                         int firstValue = Integer.valueOf(matcher.group(1));
-                        int secondValue = Integer.valueOf(matcher.group(3));
+                        int secondValue = Integer.valueOf(matcher.group(1));
+
+
+                        String thirdSymbol =  matcher.group(3); // 6/2 // pattern.matcher(matcher.group(3))
+                        System.out.println("input: " + thirdSymbol);
 
                         switch (decodeSymbol) {
 
                             case "-": {
-//
-
-                                if(firstValue > secondValue)
-                                {
-                                    return IntStream
-                                            .rangeClosed(firstValue, secondValue)
-                                            .mapToObj(Integer::toString)
-                                            .collect(Collectors.joining(", "));
-
-                                }
-                                else {
-                                    return IntStream
-                                            .range(secondValue, firstValue).map(i -> firstValue - i + secondValue - 1)
-                                            .mapToObj(Integer::toString)
-                                            .collect(Collectors.joining(", "));
-
-                                    //http://stackoverflow.com/questions/24010109/java-8-stream-reverse-order
-                                }
-
-
+                                return inRange(firstValue, secondValue);
                             }
 
                             case "*": {
@@ -67,9 +48,12 @@ first-last/interval is similarly expandad, as sequence starting with first, endi
                             }
 
                             case "/": {
-                                return value;
+                                return IntStream
+                                        .rangeClosed(secondValue, firstValue)
+                                        .map(i -> (firstValue - i + secondValue) / 2)
+                                        .mapToObj(Integer::toString)
+                                        .collect(Collectors.joining(", "));
                             }
-
                         }
 
                     }
@@ -81,5 +65,23 @@ first-last/interval is similarly expandad, as sequence starting with first, endi
         return Arrays.stream(decoded.split(","))
                 .map(String::trim)
                 .mapToInt(Integer::parseInt).toArray();
+    }
+
+
+    private String inRange(int from, int to) {
+        if(from < to)
+        {
+            return IntStream
+                    .rangeClosed(from, to)
+                    .mapToObj(Integer::toString)
+                    .collect(Collectors.joining(", "));
+        }
+        else {
+            return IntStream
+                    .rangeClosed(to, from)
+                    .map(i -> from - i + to)
+                    .mapToObj(Integer::toString)
+                    .collect(Collectors.joining(", "));
+        }
     }
 }
