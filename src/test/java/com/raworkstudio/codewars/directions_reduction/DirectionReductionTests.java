@@ -11,14 +11,14 @@ import static org.junit.Assert.assertEquals;
 public class DirectionReductionTests {
 
 
-    private DirectionReduction dirReduc = new DirectionReduction();
+    private DirectionReduction directionReduction = new DirectionReduction();
 
 
     @Test
     public void test_simple_reduction() {
         assertEquals("\"NORTH\", \"SOUTH\", \"SOUTH\", \"EAST\", \"WEST\", \"NORTH\", \"WEST\"",
                 new String[]{"WEST"},
-                dirReduc.dirReduc(new String[]{"NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"}));
+                directionReduction.dirReduc(new String[]{"NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"}));
     }
 
     @Test
@@ -26,7 +26,7 @@ public class DirectionReductionTests {
 
         assertEquals("\"NORTH\", \"WEST\", \"SOUTH\", \"EAST\"",
                 new String[]{"NORTH", "WEST", "SOUTH", "EAST"},
-                dirReduc.dirReduc(new String[]{"NORTH", "WEST", "SOUTH", "EAST"}));
+                directionReduction.dirReduc(new String[]{"NORTH", "WEST", "SOUTH", "EAST"}));
     }
 
 }
