@@ -29,4 +29,16 @@ public class DirectionReductionTests {
                 directionReduction.dirReduc(new String[]{"NORTH", "WEST", "SOUTH", "EAST"}));
     }
 
+
+    @Test
+    public void test_reduction_zero() throws Exception {
+
+        assertEquals("\"NORTH\",\"SOUTH\",\"SOUTH\",\"EAST\",\"WEST\",\"NORTH\"",
+                new String[]{},
+                    directionReduction.dirReduc(new String[]{ "NORTH","SOUTH","SOUTH","EAST","WEST","NORTH"}));
+    }
+
+
+
+
 }
