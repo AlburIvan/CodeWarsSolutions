@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE) //can use in class only.
 public @interface Builder {
 
-    String className();// default "Builder";
+    String className() default "$$";
 
 }

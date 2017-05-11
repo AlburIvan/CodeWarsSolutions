@@ -21,7 +21,6 @@ import java.util.Set;
  */
 @SupportedAnnotationTypes( "com.raworkstudio.codewars.annotation.Builder" )
 @SupportedSourceVersion( SourceVersion.RELEASE_8 )
-//@S(Processor.class)
 public class BuilderAnnotationProcessor extends AbstractProcessor {
 
 
@@ -29,19 +28,15 @@ public class BuilderAnnotationProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
 
-        // process annotation
+//         what we're going to build
+//
+//        Person person = new PersonBuilder.Builder()
+//                .withName("Freddin")
+//                .withLastName("Alcantara")
+//                .withAge(21)
+//                .decideGender()
+//                .build();
 
-        // what we're going to build
-
-      /*
-      Person person = new PersonBuilder.Builder()
-                .withName("Freddin")
-                .withLastName("Alcantara")
-                .withAge(21)
-//                .withGender(Person.Gender.MASCULINO)
-                .decideGender()
-                .build();
-    */
 
         for( final Element element: roundEnv.getElementsAnnotatedWith( Builder.class ) ) {
 
@@ -52,18 +47,11 @@ public class BuilderAnnotationProcessor extends AbstractProcessor {
 
                 try {
 
-                    final String className = typeElement.getSimpleName() + "Builder";
+                    final String className = typeElement.getSimpleName() + "$$Builder";
                     final JavaFileObject fileObject = processingEnv.getFiler().createSourceFile(
                             packageElement.getQualifiedName() + "." + className);
 
-               /*     try( Writer writter = fileObject.openWriter() ) {
-                        writter.append( "package " + packageElement.getQualifiedName() + ";" );
-                        writter.append( "\\n\\n");
-                        writter.append( "public class " + className + " {" );
-                        writter.append( "\\n");
-                        writter.append( "}");
-                    }
-*/
+
                     System.out.println(className);
 
                     // JavaPoet new class
