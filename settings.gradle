@@ -1,2 +1,4 @@
 rootProject.name = 'CodeWars'
+include 'Annotations'
+findProject(':Annotations')?.name = 'annotations'
 
