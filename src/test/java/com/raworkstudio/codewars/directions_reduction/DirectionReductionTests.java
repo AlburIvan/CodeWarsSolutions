@@ -8,6 +8,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * Created by Ivan on 4/8/2017.
  */
+@SuppressWarnings("ALL")
 public class DirectionReductionTests {
 
 
