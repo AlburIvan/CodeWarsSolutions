@@ -1,35 +1,8 @@
-buildscript {
-    repositories {
-        maven {
-            url "https://plugins.gradle.org/m2/"
-        }
-    }
-    dependencies {
-        classpath "net.ltgt.gradle:gradle-apt-plugin:0.10"
-    }
-}
-
-
-group 'com.raworkstudio.codewars.annotation'
+group 'com.raworkstudio.codewars.annotations'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java'
-apply plugin: 'application'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
-
-mainClassName = "org.springframework.shell.Bootstrap"
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile 'com.squareup:javapoet:1.8.0'
-}
-
-
-apply plugin: "net.ltgt.apt"
 
