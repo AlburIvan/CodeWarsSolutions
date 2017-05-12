@@ -1,4 +1,6 @@
 rootProject.name = 'CodeWars'
 include 'Annotations'
 findProject(':Annotations')?.name = 'annotations'
+include 'Compiler'
+findProject(':Compiler')?.name = 'compilers'
 
